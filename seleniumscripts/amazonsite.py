@@ -1,12 +1,17 @@
+import time
+
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 
 # Use scope='module' to create a single WebDriver instance for the entire module
 @pytest.fixture(scope='module')
 def setup():
-    driver = webdriver.Chrome()
+    chrome_options = Options()
+    chrome_options.add_argument("--incognito")
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get("https://www.amazon.in/")
     driver.maximize_window()
     yield driver
